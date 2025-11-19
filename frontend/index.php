@@ -15,33 +15,41 @@
 <body>
     <div class="header">
         <form class="search-input">
-            <input type="text" placeholder="Keresés">
-            <input type="submit">
+            <input id="search-field" type="text" placeholder="Keresés">
+            <input id="search-submit" type="submit">
         </form>
     </div>
     
-    <h1>Előrejelzés</h1>
+    <h1>Előrejelzés órákra bontva</h1>
 
     <div class="forecast-container">
-        <div class="forecast-content">
-            <?= $homerseklet ?>
-            <?= $egbolt ?>
-            <?= $max ?>
-            <?= $min ?>
-            <?= $csapadek ?>
-        </div>
+        <?php for ($i = 0; $i <= 30; $i++): ?>
+            <div class="forecast-content">
+                <p>Dátum</p>
+                <p><?= $homerseklet ?></p>
+                <p><?= $egbolt ?></p>
+                <p><?= $max ?></p>
+                <p><?= $min ?></p>
+                <p><?= $csapadek ?></p>
+            </div>
+         <?php endfor; ?>
     </div>
 
     <div class="emptiness"></div>
 
+    <h1>A következő napokban várható időjárás</h1>
+
     <div class="forecast-container">
+        <?php for ($i = 0; $i <= 30; $i++): ?>
         <div class="forecast-content">
-            <?= $homerseklet ?>
-            <?= $egbolt ?>
-            <?= $max ?>
-            <?= $min ?>
-            <?= $csapadek ?>
+            <p>Dátum</p>
+            <p><?= $homerseklet ?></p>
+            <p><?= $egbolt ?></p>
+            <p><?= $max ?></p>
+            <p><?= $min ?></p>
+            <p><?= $csapadek ?></p>
         </div>
+        <?php endfor; ?>
     </div>
 
 </body>
