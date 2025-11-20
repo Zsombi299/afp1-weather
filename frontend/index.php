@@ -14,9 +14,16 @@
 </head>
 <body>
     <div class="header">
-        <form class="search-input">
-            <input id="search-field" type="text" placeholder="Keresés">
-            <input id="search-submit" type="submit">
+
+        <form action="login.html">
+            <button type="submit">Bejelentkezés</button>
+        </form>
+    </div>
+
+    <div class="header">
+        <form class="search-input" action=""> <!-- az action-be kellene beleírni a keresés algoritmusát-->
+            <input id="search-field" type="text">
+            <input id="search-submit" type="submit" value="Keresés">
         </form>
     </div>
     

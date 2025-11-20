@@ -9,9 +9,9 @@ p{
 .header{
     background-color: white;
     width: 100%;
-}
-
-.search-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: right;
 }
 
@@ -35,4 +35,25 @@ p{
 
 .emptiness{
     margin: 50px;
+}
+
+.login-web{
+    align-items: center;
+}
+
+.login-container{
+    background-color: white;
+    width: 25%;
+    text-align: center;
+    justify-content: center;;
+    margin: 0 auto;
+    border: 2px solid black;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
