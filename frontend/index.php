@@ -14,10 +14,14 @@
 </head>
 <body>
     <div class="header">
-
-        <form action="login.html">
-            <button type="submit">Bejelentkezés</button>
-        </form>
+        <?php if (isset($_COOKIE['role']) && $_COOKIE['role'] === 'admin'): ?>
+            <p>Bejelentkezve adminként</p>
+            <button onclick="document.cookie='role=; path=/; max-age=0'; window.location.reload();">Kijelentkezés</button>
+        <?php else: ?>
+            <form action="login.html">
+                <button type="submit">Bejelentkezés</button>
+            </form>
+        <?php endif; ?>
     </div>
 
     <div class="header">
