@@ -1,10 +1,9 @@
 <?php
 
     // include 'elorejelzes.php';
-    require_once 'backend.php'
+    require_once '..\backend.php'
 
 ?>
-
 
 <html lang="hu">
 <head>
@@ -31,16 +30,18 @@
     <h1>Előrejelzés órákra bontva</h1>
 
     <div class="forecast-container">
-        <?php for ($i = 0; $i <= 30; $i++): ?>
             <div class="forecast-content">
                 <p>Dátum</p>
-                <p><?= $homerseklet ?></p>
-                <p><?= $egbolt ?></p>
-                <p><?= $max ?></p>
-                <p><?= $min ?></p>
-                <p><?= $csapadek ?></p>
+                <?php
+                if ($data && isset($data->main)){
+                    echo $data;
+                    // echo $data->main->temp_min;
+                    // echo $data->main->humidity;
+                } else {
+                    echo "Nincs adat.";
+                }
+            ?>
             </div>
-         <?php endfor; ?>
     </div>
 
     <div class="emptiness"></div>
@@ -48,16 +49,18 @@
     <h1>A következő napokban várható időjárás</h1>
 
     <div class="forecast-container">
-        <?php for ($i = 0; $i <= 30; $i++): ?>
         <div class="forecast-content">
             <p>Dátum</p>
-            <p><?= $homerseklet ?></p>
-            <p><?= $egbolt ?></p>
-            <p><?= $max ?></p>
-            <p><?= $min ?></p>
-            <p><?= $csapadek ?></p>
+            <?php
+                if ($data && isset($data->main)){
+                    echo $data;
+                    // echo $data->main->temp_min;
+                    // echo $data->main->humidity;
+                } else {
+                    echo "Nincs adat.";
+                }
+            ?>
         </div>
-        <?php endfor; ?>
     </div>
 
     <form class="export-form">
