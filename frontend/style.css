@@ -1,0 +1,59 @@
+html{
+    background-color: deepskyblue;
+}
+
+p{
+    height: 0px;
+}
+
+.header{
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+}
+
+.forecast-container{
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.forecast-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.emptiness{
+    margin: 50px;
+}
+
+.login-web{
+    align-items: center;
+}
+
+.login-container{
+    background-color: white;
+    width: 25%;
+    text-align: center;
+    justify-content: center;;
+    margin: 0 auto;
+    border: 2px solid black;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
