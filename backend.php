@@ -71,7 +71,11 @@ function getCityIdFromJson($filename, $cityName) {
 }
 
 $apiKey = "e2d8124b4ac45c54fcabe703fa7a9492";
-$cityId = getCityIdFromJson('city.list.json', $location['city']);
+@$cityId = getCityIdFromJson('city.list.json', $_GET['city']);
+if(!$cityId){
+    $location = getLocationWithCurl();
+    $cityId = getCityIdFromJson('city.list.json', $location['city']);
+}
 //$cityId = "721239";
 $googleApiUrl = "https://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
@@ -117,7 +121,7 @@ if (@$_GET['city'] == null){
 }
 ?>
 
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
@@ -131,11 +135,6 @@ if (@$_GET['city'] == null){
     <p>Hőmérséklet: <?= $data->main->temp ?>°</p>
     <p>Szélsebesség: <?= $data->wind->speed ?> m/s</p>
     <p>Szélirány: <?= $data->wind->deg ?>°</p>
-    <script>
-        function refresh(){
-            cityName = document.getElementById("city").value;
-            window.location = window.location + "?city=" + cityName;
-        }   
-    </script>
+    <script src="backend.js"></script>
 </body>
-</html> -->
+</html>
