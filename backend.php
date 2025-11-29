@@ -56,7 +56,6 @@ function getRealPublicIP() {
     return '8.8.8.8';
 }
 
-$location = getLocationWithCurl();
 
 function getCityIdFromJson($filename, $cityName) {
     $jsonString = file_get_contents($filename);
@@ -71,8 +70,12 @@ function getCityIdFromJson($filename, $cityName) {
 }
 
 $apiKey = "e2d8124b4ac45c54fcabe703fa7a9492";
-$cityId = getCityIdFromJson('city.list.json', $location['city']);
-//$cityId = "721239";
+@$cityId = getCityIdFromJson('city.list.json', $_GET['city']);
+if(!$cityId){
+    $location = getLocationWithCurl();
+    $cityId = getCityIdFromJson('city.list.json', $location['city']);
+}
+
 $googleApiUrl = "https://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
 $ch = curl_init();
@@ -89,3 +92,21 @@ curl_close($ch);
 $data = json_decode($response);
 $currentTime = time();
 ?>
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teszt</title>
+</head>
+<body>
+    Város: <input type="text" id="city" name="city"><button onClick="refresh()">Keresés</button>
+    <p>Város: <?= $data->name ?></p>
+    <p>Időjárás típusa: <?= $data->weather[0]->main ?></p>
+    <p>Hőmérséklet: <?= $data->main->temp ?>°</p>
+    <p>Szélsebesség: <?= $data->wind->speed ?> m/s</p>
+    <p>Szélirány: <?= $data->wind->deg ?>°</p>
+    <script src="scripts.js"></script>
+</body>
+</html>
