@@ -1,8 +1,29 @@
 <?php
-function getLocationWithCurl($ip = null) {
+function get5DayForecast($city, $apiKey) {
+    $url = "https://api.openweathermap.org/data/2.5/forecast?q=" . urlencode($city) . "&appid=" . $apiKey . "&units=metric";
+    
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10
+    ]);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($httpCode === 200) {
+        return json_decode($response, true);
+    }
+    
+    return null;
+}
+
+function getLocation($ip = null) {
     if (!$ip) {
         //$ip = $_SERVER['REMOTE_ADDR'];
-        $ip = getRealPublicIP();
+        $ip = getPublicIP();
         //print_r($_SERVER['REMOTE_ADDR']);
         
         // Handle localhost IP
@@ -38,7 +59,7 @@ function getLocationWithCurl($ip = null) {
     return ['error' => 'Failed to fetch location data'];
 }
 
-function getRealPublicIP() {
+function getPublicIP() {
     $services = [
         'https://api.ipify.org',
         'https://icanhazip.com',
@@ -56,7 +77,6 @@ function getRealPublicIP() {
     return '8.8.8.8';
 }
 
-$location = getLocationWithCurl();
 
 function getCityIdFromJson($filename, $cityName) {
     $jsonString = file_get_contents($filename);
@@ -70,13 +90,17 @@ function getCityIdFromJson($filename, $cityName) {
     return null;
 }
 
+$location = getLocation();
 $apiKey = "e2d8124b4ac45c54fcabe703fa7a9492";
 @$cityId = getCityIdFromJson('city.list.json', $_GET['city']);
 if(!$cityId){
-    $location = getLocationWithCurl();
+    $location = getLocation();
     $cityId = getCityIdFromJson('city.list.json', $location['city']);
 }
-//$cityId = "721239";
+
+function getWeather($city){
+
+}
 $googleApiUrl = "https://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
 $ch = curl_init();
@@ -92,36 +116,30 @@ $response = curl_exec($ch);
 curl_close($ch);
 $data = json_decode($response);
 
-function get5DayForecast($city, $apiKey) {
-    $url = "https://api.openweathermap.org/data/2.5/forecast?q=" . urlencode($city) . "&appid=" . $apiKey . "&units=metric";
-    
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10
-    ]);
-    
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    
-    if ($httpCode === 200) {
-        return json_decode($response, true);
-    }
-    
-    return null;
-}
-
 $cityName;
-if (@$_GET['city'] == null){
+if(@$_GET['city'] == null){
     $cityName = $location['city'];
 } else {
     $cityName = $_GET['city'];
 }
+
+/* $forecast = get5DayForecast($cityName, $apiKey);
+if ($forecast) {
+    echo "<h3>5-Day Forecast for " . $forecast['city']['name'] . "</h3>";
+    
+    foreach ($forecast['list'] as $period) {
+        echo "<div style='border:1px solid #ccc; margin:5px; padding:10px;'>";
+        echo "<strong>Date/Time:</strong> " . date('Y-m-d H:i', $period['dt']) . "<br>";
+        echo "<strong>Temp:</strong> " . $period['main']['temp'] . "°C<br>";
+        echo "<strong>Weather:</strong> " . $period['weather'][0]['description'] . "<br>";
+        echo "<strong>Humidity:</strong> " . $period['main']['humidity'] . "%<br>";
+        echo "<strong>Wind:</strong> " . $period['wind']['speed'] . " m/s<br>";
+        echo "</div>";
+    }
+} */
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
@@ -137,4 +155,4 @@ if (@$_GET['city'] == null){
     <p>Szélirány: <?= $data->wind->deg ?>°</p>
     <script src="backend.js"></script>
 </body>
-</html>
+</html> -->
