@@ -87,10 +87,6 @@ $response = curl_exec($ch);
 
 curl_close($ch);
 $data = json_decode($response);
-$currentTime = time();
-<<<<<<< Updated upstream
-?>
-=======
 
 function get5DayForecast($city, $apiKey) {
     $url = "https://api.openweathermap.org/data/2.5/forecast?q=" . urlencode($city) . "&appid=" . $apiKey . "&units=metric";
@@ -149,7 +145,11 @@ if ($forecast) {
     <p>Hőmérséklet: <?= $data->main->temp ?>°</p>
     <p>Szélsebesség: <?= $data->wind->speed ?> m/s</p>
     <p>Szélirány: <?= $data->wind->deg ?>°</p>
-    <script src="scripts.js"></script>
+    <script>
+        function refresh(){
+            cityName = document.getElementById("city").value;
+            window.location = window.location + "?city=" + cityName;
+        }   
+    </script>
 </body>
 </html>
->>>>>>> Stashed changes
