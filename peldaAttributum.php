@@ -66,6 +66,20 @@ echo "város név: " . $data->name;
 echo "<br>";
 echo "http response code: " . $data->cod;
 echo "<br>";
+$forecast = get5DayForecast($cityName, $apiKey);
+if ($forecast) {
+    echo "Példa 5 napos előrejelzés";
+    
+    foreach ($forecast['list'] as $period) {
+        echo "<div style='border:1px solid #ccc; margin:5px; padding:10px;'>";
+        echo "<strong>Date/Time:</strong> " . date('Y-m-d H:i', $period['dt']) . "<br>";
+        echo "<strong>Temp:</strong> " . $period['main']['temp'] . "°C<br>";
+        echo "<strong>Weather:</strong> " . $period['weather'][0]['description'] . "<br>";
+        echo "<strong>Humidity:</strong> " . $period['main']['humidity'] . "%<br>";
+        echo "<strong>Wind:</strong> " . $period['wind']['speed'] . " m/s<br>";
+        echo "</div>";
+    }
+}
 echo "<br>";
 echo "<br>";
 echo "<br>";

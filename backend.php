@@ -115,23 +115,9 @@ if (@$_GET['city'] == null){
 } else {
     $cityName = $_GET['city'];
 }
-$forecast = get5DayForecast($cityName, $apiKey);
-if ($forecast) {
-    echo "<h3>5-Day Forecast for " . $forecast['city']['name'] . "</h3>";
-    
-    foreach ($forecast['list'] as $period) {
-        echo "<div style='border:1px solid #ccc; margin:5px; padding:10px;'>";
-        echo "<strong>Date/Time:</strong> " . date('Y-m-d H:i', $period['dt']) . "<br>";
-        echo "<strong>Temp:</strong> " . $period['main']['temp'] . "°C<br>";
-        echo "<strong>Weather:</strong> " . $period['weather'][0]['description'] . "<br>";
-        echo "<strong>Humidity:</strong> " . $period['main']['humidity'] . "%<br>";
-        echo "<strong>Wind:</strong> " . $period['wind']['speed'] . " m/s<br>";
-        echo "</div>";
-    }
-}
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
@@ -152,4 +138,4 @@ if ($forecast) {
         }   
     </script>
 </body>
-</html>
+</html> -->
