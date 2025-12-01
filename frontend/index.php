@@ -1,5 +1,4 @@
 <?php
-    // include 'elorejelzes.php';
     require_once '..\backend.php';
 ?>
 
