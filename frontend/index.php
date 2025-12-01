@@ -1,8 +1,6 @@
 <?php
-
     // include 'elorejelzes.php';
-    require_once '..\backend.php'
-
+    require_once '..\backend.php';
 ?>
 
 <html lang="hu">
@@ -15,8 +13,10 @@
 <body>
     <div class="header">
         <?php if (isset($_COOKIE['role']) && $_COOKIE['role'] === 'admin'): ?>
-            <p>Bejelentkezve adminként</p>
-            <button onclick="document.cookie='role=; path=/; max-age=0'; window.location.reload();">Kijelentkezés</button>
+            <div>
+                <p>Bejelentkezve adminként</p>
+                <button onclick="document.cookie='role=; path=/; max-age=0'; window.location.reload();" class="logout-button">Kijelentkezés</button>
+            </div>
         <?php else: ?>
             <form action="login.html">
                 <button type="submit">Bejelentkezés</button>
@@ -34,18 +34,21 @@
     <h1>Előrejelzés órákra bontva</h1>
 
     <div class="forecast-container">
-            <div class="forecast-content">
-                <p>Dátum</p>
+        <div class="forecast-content">
+            <p>Dátum</p>
+            <p>
                 <?php
                 if ($data && isset($data->main)){
-                    echo $data;
-                    // echo $data->main->temp_min;
-                    // echo $data->main->humidity;
+                    echo "<div class='temp'>" . $data->main->temp . "</div>";
+                    echo "<div class='temp-max'>" . $data->main->temp_max . "</div>";
+                    echo "<div class='temp-min'>" . $data->main->temp_min . "</div>";
+                    echo "<div class='humidity'>" . $data->main->humidity . "</div>";
                 } else {
                     echo "Nincs adat.";
                 }
-            ?>
-            </div>
+                ?>
+            </p>
+        </div>
     </div>
 
     <div class="emptiness"></div>
@@ -55,21 +58,25 @@
     <div class="forecast-container">
         <div class="forecast-content">
             <p>Dátum</p>
-            <?php
+            <p>
+                <?php
                 if ($data && isset($data->main)){
-                    echo $data;
-                    // echo $data->main->temp_min;
-                    // echo $data->main->humidity;
+                    echo "<div class='temp'>" . $data->main->temp . "</div>";
+                    echo "<div class='temp-max'>" . $data->main->temp_max . "</div>";
+                    echo "<div class='temp-min'>" . $data->main->temp_min . "</div>";
+                    echo "<div class='humidity'>" . $data->main->humidity . "</div>";
                 } else {
                     echo "Nincs adat.";
                 }
-            ?>
+                ?>
+            </p>
         </div>
     </div>
 
-    <form class="export-form">
-        <input type="submit" value="Exportálás">
-    </form>
-
+    <?php if (isset($_COOKIE['role']) && $_COOKIE['role'] === 'admin'): ?>
+        <form class="export-form">
+            <input type="submit" value="Exportálás">
+        </form>
+    <?php endif; ?>
 </body>
 </html>

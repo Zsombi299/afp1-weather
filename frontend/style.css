@@ -37,6 +37,10 @@ p{
     margin: 50px;
 }
 
+.logout-button{
+    margin: 10px;
+}
+
 .login-web{
     align-items: center;
 }

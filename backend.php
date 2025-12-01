@@ -79,7 +79,7 @@ function getPublicIP() {
 
 
 function getCityIdFromJson($filename, $cityName) {
-    $jsonString = file_get_contents($filename);
+    $jsonString = file_get_contents(__DIR__ . '/' . $filename);
     $cities = json_decode($jsonString, true);
     
     foreach ($cities as $city) {
