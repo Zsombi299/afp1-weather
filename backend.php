@@ -114,7 +114,8 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $response = curl_exec($ch);
 
 curl_close($ch);
-$data = json_decode($response);
+$currentForecast = json_decode($response);
+
 
 $cityName;
 if(@$_GET['city'] == null){
@@ -122,6 +123,8 @@ if(@$_GET['city'] == null){
 } else {
     $cityName = $_GET['city'];
 }
+
+$predictedForecast = get5DayForecast($cityName, $apiKey);
 
 /* $forecast = get5DayForecast($cityName, $apiKey);
 if ($forecast) {
@@ -148,11 +151,11 @@ if ($forecast) {
 </head>
 <body>
     Város: <input type="text" id="city" name="city"><button onClick="refresh()">Keresés</button>
-    <p>Város: <?= $data->name ?></p>
-    <p>Időjárás típusa: <?= $data->weather[0]->main ?></p>
-    <p>Hőmérséklet: <?= $data->main->temp ?>°</p>
-    <p>Szélsebesség: <?= $data->wind->speed ?> m/s</p>
-    <p>Szélirány: <?= $data->wind->deg ?>°</p>
+    <p>Város: <?= $currentForecast->name ?></p>
+    <p>Időjárás típusa: <?= $currentForecast->weather[0]->main ?></p>
+    <p>Hőmérséklet: <?= $currentForecast->main->temp ?>°</p>
+    <p>Szélsebesség: <?= $currentForecast->wind->speed ?> m/s</p>
+    <p>Szélirány: <?= $currentForecast->wind->deg ?>°</p>
     <script src="backend.js"></script>
 </body>
 </html> -->

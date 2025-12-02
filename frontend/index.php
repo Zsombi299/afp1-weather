@@ -35,18 +35,21 @@
     <div class="forecast-container">
         <div class="forecast-content">
             <p>Dátum</p>
-            <p>
-                <?php
-                if ($data && isset($data->main)){
-                    echo "<div class='temp'>" . $data->main->temp . "</div>";
-                    echo "<div class='temp-max'>" . $data->main->temp_max . "</div>";
-                    echo "<div class='temp-min'>" . $data->main->temp_min . "</div>";
-                    echo "<div class='humidity'>" . $data->main->humidity . "</div>";
-                } else {
-                    echo "Nincs adat.";
-                }
-                ?>
-            </p>
+            <?php
+            // if ($currentForecast && isset($currentForecast['list'])){
+            //     foreach ($currentForecast['list'] as $period) {
+            //         echo "<div style='border:1px solid #ccc; margin:5px; padding:10px;'>";
+            //         echo "<strong>Date/Time:</strong> " . date('Y-m-d H:i', $period['dt']) . "<br>";
+            //         echo "<strong>Temp:</strong> " . $period['main']['temp'] . "°C<br>";
+            //         echo "<strong>Weather:</strong> " . $period['weather'][0]['description'] . "<br>";
+            //         echo "<strong>Humidity:</strong> " . $period['main']['humidity'] . "%<br>";
+            //         echo "<strong>Wind:</strong> " . $period['wind']['speed'] . " m/s<br>";
+            //         echo "</div>";
+            //     }
+            // } else {
+            //     echo "Nincs adat.";
+            // }
+            ?>
         </div>
     </div>
 
@@ -57,18 +60,27 @@
     <div class="forecast-container">
         <div class="forecast-content">
             <p>Dátum</p>
-            <p>
-                <?php
-                if ($data && isset($data->main)){
-                    echo "<div class='temp'>" . $data->main->temp . "</div>";
-                    echo "<div class='temp-max'>" . $data->main->temp_max . "</div>";
-                    echo "<div class='temp-min'>" . $data->main->temp_min . "</div>";
-                    echo "<div class='humidity'>" . $data->main->humidity . "</div>";
+            <?php
+                if ($predictedForecast && isset($predictedForecast['list'])){
+                foreach ($predictedForecast['list'] as $period) {
+                    // Itt adtam hozzá a 'display: flex' és 'justify-content' stílusokat
+                    // A 'gap: 15px' távolságot tart az elemek között
+                    // Az 'align-items: center' középre igazítja őket függőlegesen
+                    echo "<div style='border:1px solid #ccc; margin:5px; padding:10px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;'>";
+                
+                    // A <br> tageket töröltem, és span-okba tettem az adatokat a könnyebb formázásért
+                    echo "<span><strong>Dátum:</strong> " . date('m-d H:i', $period['dt']) . "</span>";
+                    echo "<span><strong>Hőm:</strong> " . round($period['main']['temp']) . "°C</span>";
+                    echo "<span><strong>Időjárás:</strong> " . $period['weather'][0]['description'] . "</span>";
+                    echo "<span><strong>Pára:</strong> " . $period['main']['humidity'] . "%</span>";
+                    echo "<span><strong>Szél:</strong> " . $period['wind']['speed'] . " m/s</span>";
+                
+                    echo "</div>";
+                }
                 } else {
                     echo "Nincs adat.";
                 }
-                ?>
-            </p>
+            ?>
         </div>
     </div>
 
