@@ -17,7 +17,8 @@ p{
 
 .forecast-container{
     background-color: white;
-    width: 100%;
+    /* width: 100%; */
+    width: fit-content;
     display: flex;
     justify-content: center;
     text-align: center;

@@ -24,8 +24,8 @@
     </div>
 
     <div class="header">
-        <form class="search-input" action="<?= htmlspecialchars($_SERVER['PHP_SELF']);?>?city=Oslo" method="post"> <!-- az action-be kellene beleírni a keresés algoritmusát-->
-            <input id="search-field" type="text">
+        <form class="search-input" action="<?= htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post"> <!-- az action-be kellene beleírni a keresés algoritmusát-->
+            <input id="search-field" type="text" name="city">
             <input id="search-submit" type="submit" value="Keresés">
         </form>
     </div>
@@ -62,10 +62,9 @@
             <p>Dátum</p>
             <?php
                 if (!empty($dailyForecast)){
-                    for ($i = 0; $i < count( $dailyForecast ); $i++) {
-                        $period = $dailyForecast[$i];
+                    foreach ($dailyForecast as $period) {
                         echo "<div style='border:1px solid #ccc; margin:5px; padding:10px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;'>";
-                        echo "<span><strong>Dátum:</strong> " . date('m-d H:i', $period['date']) . "</span>";
+                        echo "<span><strong>Dátum:</strong> " . $period['date'] . "</span>";
                         echo "<span><strong>Min hőm:</strong> " . round($period['min']) . "°C</span>";
                         echo "<span><strong>Max hőm:</strong> " . round($period['max']) . "°C</span>";
                         echo "</div>";
