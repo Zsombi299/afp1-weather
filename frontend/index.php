@@ -1,5 +1,5 @@
 <?php
-    require_once '..\backend.php';
+    require '..\backend.php';
 ?>
 
 <html lang="hu">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="header">
-        <form class="search-input" action=""> <!-- az action-be kellene beleírni a keresés algoritmusát-->
+        <form class="search-input" action="<?= htmlspecialchars($_SERVER['PHP_SELF']);?>?city=Oslo" method="post"> <!-- az action-be kellene beleírni a keresés algoritmusát-->
             <input id="search-field" type="text">
             <input id="search-submit" type="submit" value="Keresés">
         </form>

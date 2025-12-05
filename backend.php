@@ -1,24 +1,7 @@
 <?php
-function get5DayForecast($city, $apiKey) {
-    $url = "https://api.openweathermap.org/data/2.5/forecast?q=" . urlencode($city) . "&appid=" . $apiKey . "&units=metric";
-    
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10
-    ]);
-    
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    
-    if ($httpCode === 200) {
-        return json_decode($response, true);
-    }
-    
-    return null;
-}
+//$apiKey = "e2d8124b4ac45c54fcabe703fa7a9492";
+
+define('API_KEY', 'e2d8124b4ac45c54fcabe703fa7a9492');
 
 function getLocation($ip = null) {
     if (!$ip) {
@@ -78,7 +61,7 @@ function getPublicIP() {
 }
 
 
-function getCityIdFromJson($filename, $cityName) {
+function getCityIdFromJson($filename = 'city.list.json', $cityName) {
     $jsonString = file_get_contents(__DIR__ . '/' . $filename);
     $cities = json_decode($jsonString, true);
     
@@ -91,30 +74,57 @@ function getCityIdFromJson($filename, $cityName) {
 }
 
 $location = getLocation();
-$apiKey = "e2d8124b4ac45c54fcabe703fa7a9492";
+
 @$cityId = getCityIdFromJson('city.list.json', $_GET['city']);
 if(!$cityId){
     $location = getLocation();
     $cityId = getCityIdFromJson('city.list.json', $location['city']);
 }
 
-function getWeather($city){
-
+function get5DayForecast($city, $apiKey = API_KEY) {
+    $url = "https://api.openweathermap.org/data/2.5/forecast?q=" . urlencode($city) . "&appid=" . $apiKey . "&units=metric";
+    
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10
+    ]);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($httpCode === 200) {
+        return json_decode($response, true);
+    }
+    
+    return null;
 }
-$googleApiUrl = "https://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
-$ch = curl_init();
+function getWeather($cityId, $apiKey = API_KEY){
 
-curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_URL, $googleApiUrl);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-curl_setopt($ch, CURLOPT_VERBOSE, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-$response = curl_exec($ch);
+    $googleApiUrl = "https://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
+    
+    $ch = curl_init();
+    
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $googleApiUrl);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_VERBOSE, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 
-curl_close($ch);
-$currentForecast = json_decode($response);
+    if($httpCode === 200){
+        $currentForecast = json_decode($response);
+    }
+
+    return null;
+}
 
 
 $cityName;
@@ -124,7 +134,8 @@ if(@$_GET['city'] == null){
     $cityName = $_GET['city'];
 }
 
-$predictedForecast = get5DayForecast($cityName, $apiKey);
+$currentForecast = getWeather($cityName);
+$predictedForecast = get5DayForecast($cityName);
 
 /* $forecast = get5DayForecast($cityName, $apiKey);
 if ($forecast) {
@@ -141,21 +152,11 @@ if ($forecast) {
     }
 } */
 ?>
-
-<!-- <!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>teszt</title>
-</head>
-<body>
-    Város: <input type="text" id="city" name="city"><button onClick="refresh()">Keresés</button>
-    <p>Város: <?= $currentForecast->name ?></p>
-    <p>Időjárás típusa: <?= $currentForecast->weather[0]->main ?></p>
-    <p>Hőmérséklet: <?= $currentForecast->main->temp ?>°</p>
-    <p>Szélsebesség: <?= $currentForecast->wind->speed ?> m/s</p>
-    <p>Szélirány: <?= $currentForecast->wind->deg ?>°</p>
-    <script src="backend.js"></script>
-</body>
-</html> -->
+<script>
+    async function getWeather() {
+        const cityName = document.getElementById("search-field").value;
+        const params = new URLSearchParams({city: city});
+        const response = await fetch(`backend.php?${params}`);
+        return await response.json();
+    }
+</script>
