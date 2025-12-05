@@ -30,7 +30,7 @@
         </form>
     </div>
     
-    <h1>Előrejelzés órákra bontva</h1>
+    <h1>Előrejelzés órákra bontva itt: <?= $cityName ?></h1>
 
     <div class="forecast-container">
         <div class="forecast-content">
@@ -55,7 +55,7 @@
 
     <div class="emptiness"></div>
 
-    <h1>A következő napokban várható időjárás</h1>
+    <h1>A következő napokban várható időjárás itt: <?= $cityName ?></h1>
 
     <div class="forecast-container">
         <div class="forecast-content">
@@ -77,7 +77,7 @@
     </div>
 
     <?php if (isset($_COOKIE['role']) && $_COOKIE['role'] === 'admin'): ?>
-        <form class="export-form">
+        <form class="export-form" action="..\export.php" method="post">
             <input type="submit" value="Exportálás">
         </form>
     <?php endif; ?>

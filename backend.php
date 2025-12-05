@@ -1,5 +1,4 @@
 <?php
-//$apiKey = "e2d8124b4ac45c54fcabe703fa7a9492";
 
 define('API_KEY', 'e2d8124b4ac45c54fcabe703fa7a9492');
 
@@ -74,10 +73,11 @@ function getCityIdFromJson($filename = 'city.list.json', $cityName) {
 }
 
 $location = getLocation();
+//print_r($location);
 
-@$cityId = getCityIdFromJson('city.list.json', $_GET['city']);
+@$cityId = getCityIdFromJson('city.list.json', $_POST['city']);
+//echo $cityId;
 if(!$cityId){
-    $location = getLocation();
     $cityId = getCityIdFromJson('city.list.json', $location['city']);
 }
 
@@ -136,6 +136,7 @@ if(@$_GET['city'] == null){
 
 $currentForecast = getWeather($cityName);
 $predictedForecast = get5DayForecast($cityName);
+
 
 $dailyForecast = [];
 
