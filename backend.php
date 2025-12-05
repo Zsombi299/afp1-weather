@@ -137,6 +137,43 @@ if(@$_GET['city'] == null){
 $currentForecast = getWeather($cityName);
 $predictedForecast = get5DayForecast($cityName);
 
+$dailyForecast = [];
+
+if (isset($predictedForecast['list'])) {
+    
+    foreach ($predictedForecast['list'] as $item) {
+        // Kinyerjük a dátumot (óra/perc nélkül: pl. 2023-10-25)
+        $date = date('Y-m-d', $item['dt']);
+        
+        // Aktuális 3-órás blokk minimum és maximum értékei
+        $min = $item['main']['temp_min'];
+        $max = $item['main']['temp_max'];
+        // Ha ehhez a naphoz még nincs adatunk, létrehozzuk a kezdőértékeket
+        if (!isset($dailyForecast[$date])) {
+            $dailyForecast[$date] = [
+                'date' => $date,
+                'min' => $min,
+                'max' => $max,
+                // Opcionális: elmentjük az első időjárás leírást/ikont is referenciának
+                'description' => $item['weather'][0]['description'],
+                'icon' => $item['weather'][0]['icon']
+            ];
+        } else {
+            // Ha már van adat, összehasonlítjuk és frissítjük, ha szélsőségesebbet találunk
+            
+            // Ha a mostani min kisebb, mint az eddig tárolt, felülírjuk
+            if ($min < $dailyForecast[$date]['min']) {
+                $dailyForecast[$date]['min'] = $min;
+            }
+            
+            // Ha a mostani max nagyobb, mint az eddig tárolt, felülírjuk
+            if ($max > $dailyForecast[$date]['max']) {
+                $dailyForecast[$date]['max'] = $max;
+            }
+        }
+    }
+}
+
 /* $forecast = get5DayForecast($cityName, $apiKey);
 if ($forecast) {
     echo "<h3>5-Day Forecast for " . $forecast['city']['name'] . "</h3>";

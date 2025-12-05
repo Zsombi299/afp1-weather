@@ -24,9 +24,7 @@ p{
 }
 
 .forecast-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: contents;
     align-items: center;
     width: 50px;
     height: 200px;
