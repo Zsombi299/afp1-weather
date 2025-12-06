@@ -103,24 +103,21 @@ function get5DayForecast($city, $apiKey = API_KEY) {
 }
 
 function getWeather($cityId, $apiKey = API_KEY){
-
     $googleApiUrl = "https://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
     
     $ch = curl_init();
-    
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $googleApiUrl);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
-
     if($httpCode === 200){
         $currentForecast = json_decode($response);
+        return $currentForecast;
     }
 
     return null;
@@ -134,9 +131,8 @@ if(@$_POST['city'] == null){
     $cityName = $_POST['city'];
 }
 
-$currentForecast = getWeather($cityName);
+$currentForecast = getWeather($cityId);
 $predictedForecast = get5DayForecast($cityName);
-
 
 $dailyForecast = [];
 
@@ -190,11 +186,11 @@ if ($forecast) {
     }
 } */
 ?>
-<script>
+<!-- <script>
     async function getWeather() {
         const cityName = document.getElementById("search-field").value;
         const params = new URLSearchParams({city: city});
         const response = await fetch(`backend.php?${params}`);
         return await response.json();
     }
-</script>
+</script> -->

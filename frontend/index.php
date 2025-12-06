@@ -13,10 +13,11 @@
     <div class="header">
         <table>
             <tr>
-                <td rowspan="2" style="min-width:40%">
+                <td>
                     <h1>Hiper Szuper Időjárás Jelentés OMG 3000</h1>
+                    <p id="kreator">Készítette: Istvanovszki Zsombor, Bujpál Dorián Manó, Fegecs Armand Péter</p>
                 </td>
-                <td style="min-width:40%">
+                <td>
                     <div class="header">
                         <?php if (isset($_COOKIE['role']) && $_COOKIE['role'] === 'admin'): ?>
                             <div>
@@ -36,6 +37,28 @@
                 </td>
             </tr>
         </table>
+    </div>
+
+    <h1>Jelenlegi időjárás itt: <?= $cityName ?></h1>
+    <div class="forecast-container">
+        <div class="forecast-content">
+            <?php
+                if ($currentForecast) {
+                    $icon = $currentForecast->weather[0]->icon;
+                    echo "<div style='border:1px solid #ccc; margin:5px; padding:10px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;'>";
+                    echo "<img src=\"https://openweathermap.org/img/w/" . $icon . ".png\" class=\"weather-icon\" />";
+                    echo "<span><strong>Hőm:</strong> " . round($currentForecast->main->temp) . "°C</span>";
+                    echo "<span><strong>Érzeti hőm:</strong> " . round($currentForecast->main->feels_like) . "°C</span>";
+                    echo "<span><strong>Időjárás:</strong> " . $currentForecast->weather[0]->description . "</span>";
+                    echo "<span><strong>Légnyomás:</strong> " . $currentForecast->main->pressure . " hPa</span>";
+                    echo "<span><strong>Pára:</strong> " . $currentForecast->main->humidity . "%</span>";
+                    echo "<span><strong>Szél:</strong> " . $currentForecast->wind->speed . " m/s</span>";
+                    echo "<span><strong>Napkelte:</strong> " . date('H:i:s',$currentForecast->sys->sunrise) . "</span>";
+                    echo "<span><strong>Napnyugta:</strong> " . date('H:i:s',$currentForecast->sys->sunset) . "</span>";
+                    echo "</div>";
+                }
+            ?>
+        </div>
     </div>
     
     <h1>Előrejelzés órákra bontva itt: <?= $cityName ?></h1>

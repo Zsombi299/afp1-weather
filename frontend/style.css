@@ -63,6 +63,9 @@ p{
 }
 
 table {
-    padding-left: 2%;
-    padding-right: 2%;
+    padding: 1%;
+}
+
+#kreator {
+    height: fit-content;
 }
