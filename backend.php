@@ -128,10 +128,10 @@ function getWeather($cityId, $apiKey = API_KEY){
 
 
 $cityName;
-if(@$_GET['city'] == null){
+if(@$_POST['city'] == null){
     $cityName = $location['city'];
 } else {
-    $cityName = $_GET['city'];
+    $cityName = $_POST['city'];
 }
 
 $currentForecast = getWeather($cityName);
