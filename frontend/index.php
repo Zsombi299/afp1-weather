@@ -30,7 +30,19 @@
                             </form>
                         <?php endif; ?>
                         <form class="search-input" action="<?= htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post"> <!-- az action-be kellene beleírni a keresés algoritmusát-->
-                            <input id="search-field" type="text" name="city">
+                            <input list="cities-list" id="search-field" name="city">
+                            <datalist id="cities-list">
+                                <?php
+                                    $filename = "city.list.json";
+                                    $jsonString = file_get_contents('../' . $filename);
+                                    $cities = json_decode($jsonString, true);
+                                    if ($cities) {
+                                        foreach ($cities as $city) {
+                                            echo '<option value="' . $city['name'] . '">';
+                                        }
+                                    }
+                                ?>
+                            </datalist>
                             <input id="search-submit" type="submit" value="Keresés">
                         </form>
                     </div>
