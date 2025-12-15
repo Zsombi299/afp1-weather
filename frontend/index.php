@@ -1,5 +1,6 @@
 <?php
     require '..\backend.php';
+        require_once '..\db_connect.php';
 ?>
 
 <html lang="hu">
@@ -127,3 +128,32 @@
     <?php endif; ?>
 </body>
 </html>
+
+<?php
+
+if (isset($predictedForecast) && isset($predictedForecast['list'])) {
+
+    $sql = "INSERT INTO datas (varos, homerseklet, datum) VALUES (?, ?, ?)";
+
+    $result = $conn->prepare($sql);
+
+    if ($result){
+        foreach ($predictedForecast['list'] as $period) {
+            $varos = $predictedForecast['city']['name'] ?? 'Ismeretlen'; 
+            $homerseklet = $period['main']['temp'];
+            $datum = date('Y-m-d H:i:s', $period['dt']);
+            $rogzites_ideje = date('Y-m-d H:i:s', $period['dt']);
+            $result->bind_param("sds", $varos, $homerseklet, $datum);
+            $result->execute();
+        }
+        $result->close();
+    }
+    else {
+    echo "Hiba a lekérdezés előkészítése során: " . $conn->error;
+    }
+}
+else{
+    echo "Mentés sikertelen";
+}
+$conn->close();
+?>
