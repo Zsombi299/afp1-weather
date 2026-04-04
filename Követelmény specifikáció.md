@@ -8,7 +8,7 @@
 
 **1.**    **Bevezetés**
 
-A projekt célja egy webalapú időjárás előrejelző rendszerkészítése. A felhasználónak a weblap segítségével lehetősége van a jelenlegi, illetve legfeljebb 30 napon belüli előrejelzéseket megtekinteni. Meg tudja nézni minden egyes napra az adott napon elérhető minimális, illetve maximális hőmérsékletet, és az égbolt alakulását (például napos, felhős, borult, ködös, stb.).
+A projekt célja egy webalapú időjárás előrejelző rendszerkészítése. A felhasználónak a weblap segítségével lehetősége van a jelenlegi, illetve legfeljebb 5 napon belüli előrejelzéseket megtekinteni. Meg tudja nézni minden egyes napra az adott napon elérhető minimális, illetve maximális hőmérsékletet, és az égbolt alakulását (például napos, felhős, borult, ködös, stb.).
 
 Egy kereső mező segítségével a felhasználó egy másik településre is rá tud keresni, ezáltal az adott település előrejelzéseit is meg tudja nézni.
 
@@ -81,7 +81,7 @@ Bizonyos felhasználók be fognak tudni jelentkezni admin felhazsnálóként is,
 
 A program elindítása után megjelenik egy ablak jelenik meg, ahol megjelenik a felhasználó lokációja alapján a helyi előrejelzés. Feljebb látható az aktuális hőmérséklet, az adott napnak az előrejelzése, és hogy milyen éppen és milyen lesz az égbolt. Az aktuális előrejelzés alatt lehet majd látni a következő napokban várható időjárást, minden napon a minimális és maximális hőmérsékletet mutatva, illetve milyen égbolt várható (napos, felhős, borult, stb.).
 
-Az ablak tetején lévőkeresőbe be tud írni egy városnevet. Városnév megadása után a lokáció alapú jelentés helyett a kiválasztott település időjárás előrejelzése jelenik meg. Teljesen ugyanolyan felépítésben, vagyis feljebb látható az adott napnak az előrejelzése, majd alatta legfeljebb 30 napnyi előrejelzés, hogy milyen idő várható akkor.
+Az ablak tetején lévőkeresőbe be tud írni egy városnevet. Városnév megadása után a lokáció alapú jelentés helyett a kiválasztott település időjárás előrejelzése jelenik meg. Teljesen ugyanolyan felépítésben, vagyis feljebb látható az adott napnak az előrejelzése, majd alatta legfeljebb 5 napnyi előrejelzés, hogy milyen idő várható akkor.
 
 A beimplementált MI segítségével tudunk javaslatokat kérni tőle, hogy milyen ruhát érdemes felvennünk aznapra. Ha az MI úgy veszi, elég meleg van aznap, akkor könnyebb ruházatot javasol a felhasználónak, például rövidnadrág, póló, sportcipő. Hűvösebb időben ezek helyett hosszú nadrágot, pulóvert, esetleg kabátot, sálat, sapkát javasol.
 

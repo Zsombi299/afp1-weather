@@ -16,7 +16,7 @@ Ez a dokumentum az AFP1 csapat által készített időjárás előrejelző rends
 
 **2.**    **Rendszeráttekintés**
 
-A rendszer egy böngészőből elérhető webes, külső API-t használó időjárás előrejelző alkalmazás. A felhasználók a weboldal megynyitásakor látják a lokációjuk szerinti időjárás előrejelzéseket. Mutatja a követkeő órákban várható időjárás alakulást, illetve az elkövetkező 30 napnak az előrejelzéseit is. A napokra bontott előrejelzések esetén a várható minimális, maximális hőmérséklet értékeket is mutatni fogja.
+A rendszer egy böngészőből elérhető webes, külső API-t használó időjárás előrejelző alkalmazás. A felhasználók a weboldal megynyitásakor látják a lokációjuk szerinti időjárás előrejelzéseket. Mutatja a követkeő órákban várható időjárás alakulást, illetve az elkövetkező 5 napnak az előrejelzéseit is. A napokra bontott előrejelzések esetén a várható minimális, maximális hőmérséklet értékeket is mutatni fogja.
 
 Ha a felhasználó egy másik településnek kívánja megnézni az előrejelzéseit, akkor a weblap tetején levő keresőmezőbe a kívánt település nevét írva meg tudja nézni az ottani előrejelzést is.
 
